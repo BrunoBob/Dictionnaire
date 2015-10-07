@@ -1,10 +1,10 @@
-all : Dictionnaire
+all : Dictionary
 
-Dictionnaire.o : Dictionnaire.h Dictionnaire.c
-	gcc -g -c Dictionnaire.c
+Dictionnaire.o : Dictionary.h Dictionary.c
+	gcc -g -c Dictionary.c
 
-Dictionnaire : Dictionnaire.o
-	gcc Dictionnaire.o -o Dictionnaire
+Dictionnaire : Dictionary.o
+	gcc Dictionary.o -o Dictionary
 
 clean :
-	rm -f *.o Dictionnaire
+	rm -f *.o Dictionary
