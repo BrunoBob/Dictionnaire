@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-typedef enum {False, Right} Boolean;
+typedef enum {False, True} Boolean;
 
 typedef struct node {
 	char car;
