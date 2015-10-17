@@ -1,13 +1,13 @@
 #include "Dictionary.h"
 
 /* ASCII TABLE
- * 
+ *
  *  * (end of word) = 42
- * 
+ *
  *	a = 97
  * 	...
  * 	z = 122
- * 
+ *
  * 	A = 65
  * 	...
  * 	Z = 90 */
@@ -21,6 +21,94 @@ Dictionary Create_Dictionary(void){
 	return D ;
 }
 
+Dictionary Add_Word(Dictionary D, char* word) {
+
+	if(Exist_Word(word) == True) {
+		return D;
+	}
+
+	size_t length = strlen(word);
+	int i = 0;
+	int ascii1, ascii2;
+
+	// E is current, while F is next. D is the root. N is a new node.
+	Dictionary E = Create_Dictionary();
+	Dictionary F = Create_Dictionary();
+	Dictionary N = Create_Dictionary();
+	Boolean finish = False;
+	E = D;
+	F = D;
+	if(F->FSL != NULL) {
+		F = F->FSL;
+
+		//We check for each character if it exists already.
+		while((i < length) && (finish == False)) {
+
+			ascii1 = char[i];
+			ascii2 = F->car;
+
+			//If it exists, we go to the next level and check the next character.
+			if(char[i] == F->car) {
+				if (F->FSL != NULL) {
+					E = F;
+					F = F->FSL;
+				}
+				else {
+					finish = True;
+				}
+				i++;
+			}//If we are not sure, we check the next character.
+			else if(ascii1 < ascii2) {
+				if(F->FBR != NULL) {
+					E = F;
+					F = F->FBR;
+				}
+				else {
+					N->car = ascii1;
+					F->FBR = N;
+					E = F;
+					F = N->FBR;
+					finish = True;
+					i++;
+				}
+			}//If the letter did not exist, we create it and finish the word.
+			else if(ascii1 > ascii2) {
+				N->car = ascii1;
+				N->FBR = F;
+				if(E->FSL == F) {
+					E->FSL = N;
+				}
+				else {
+					E->FBR = N;
+				}
+				finish = True;
+				i++;
+			}
+		}
+	}
+	else {
+		N->car = char[i];
+		F = N->FBR;
+		E->FSL = N;
+		finish = True;
+		i++;
+	}
+
+	if(finish == True) {
+		for(i; i < length; i++) {
+			Dictionary R = Create_Dictionary();
+			R->car = char[i];
+			W->FSL = R;
+			W = R;
+		}
+		Dictionary R = Create_Dictionary();
+		R->car = 42;
+		W->FSL = R;
+	}
+
+	return D;
+}
+
 
 Boolean Empty_Dictionary(Dictionary D){
 	return (D->FSL == NULL) ;
@@ -30,18 +118,18 @@ Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 
 	if(strlen(word) == 0 && D->FSL->car == 42){ // If end of the word return true
 		return True;
-	}	
-	D = D->FSL ; 
+	}
+	D = D->FSL ;
 	while(*word > D->car){
 		if(D->FBR == NULL ){
 			break;
 		}
 		D = D->FBR;
 	}
-	if(D->car == *word){		
+	if(D->car == *word){
 		return Exist_Word(D,word+1);
 	}
-	return False;		
+	return False;
 }
 
 
