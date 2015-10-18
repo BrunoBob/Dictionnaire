@@ -55,11 +55,15 @@ int main(int argc, char *argv[]) {
 				D = Empty_Dictionary(D);
 				break;
 			case 6 :
-				Save_Dictionary(D);
+				char* filename = (char*) malloc(25*sizeof(char));
+				printf("Name of the file in which you want to save: \n");
+				scanf("%s", &filename);
+				Save_Dictionary(D, filename);
+				free(filename);
 				break;
 			case 7 :
 				char* filename = (char*) malloc(25*sizeof(char));
-				printf("name of the file to load: \n");
+				printf("Name of the file to load: \n");
 				scanf("%s", &filename);
 				D = Load_Dictionary(filename);
 				free(filename);

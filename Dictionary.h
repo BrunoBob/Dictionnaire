@@ -18,4 +18,4 @@ Dictionary Load_Dictionary(char* filename);
 Boolean Exist_Word(Dictionary D, char* word);
 Boolean Is_Empty_Dictionary(Dictionary D);
 void Display_Dictionary(Dictionary D);
-void Save_Dictionary(Dictionary D);
+void Save_Dictionary(Dictionary D, char* filename);
