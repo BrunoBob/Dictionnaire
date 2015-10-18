@@ -12,6 +12,10 @@ typedef struct node {
 
 Dictionary Create_Dictionary(void);
 Dictionary Add_Word(Dictionary D, char* word);
-Dictionary Delete_Word(Dictionary D, char* word); 
+Dictionary Delete_Word(Dictionary D, char* word);
+Dictionary Empty_Dictionary(Dictionary D);
+Dictionary Load_Dictionary(char* filename);
 Boolean Exist_Word(Dictionary D, char* word);
-Boolean Empty_Dictionary(Dictionary D);
+Boolean Is_Empty_Dictionary(Dictionary D);
+void Display_Dictionary(Dictionary D);
+void Save_Dictionary(Dictionary D);

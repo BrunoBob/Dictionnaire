@@ -109,8 +109,18 @@ Dictionary Add_Word(Dictionary D, char* word) {
 	return D;
 }
 
+Dictionary Empty_Dictionary(Dictionary D) {
+	D = Create_Dictionary();
+	return D;
+}
 
-Boolean Empty_Dictionary(Dictionary D){
+Dictionary Load_Dictionary(char* filename) {
+		D = Create_Dictionary();
+		//TODO
+		return D;
+}
+
+Boolean Is_Empty_Dictionary(Dictionary D){
 	return (D->FSL == NULL) ;
 }
 
@@ -132,5 +142,10 @@ Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 	return False;
 }
 
+void Display_Dictionary(Dictionary D) {
+	//TODO
+}
 
-
+void Save_Dictionary(Dictionary D) {
+	//TODO
+}
