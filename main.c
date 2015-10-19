@@ -3,6 +3,7 @@
 char* getParameter(){
 	char* parameter ;
 	parameter = malloc(25*sizeof(char)) ;
+	scanf("%s", parameter) ;
 	return parameter ;
 }
 
@@ -20,11 +21,17 @@ int main(int argc, char *argv[]) {
 	printf("6: Save Dictionary into a '.dic' file.\n");
 	printf("7: Load a Dictionary from a '.dic' file.\n");
 	printf("8: Quit.\n");
+	
+	
 
 	int choice = 0;
 	Dictionary D = Create_Dictionary();
+	
+	
 
 	while(choice != 8) {
+		
+		
 
 		printf("Select which action to make: ");
 		scanf("%d", &choice);
@@ -47,8 +54,12 @@ int main(int argc, char *argv[]) {
 				Display_Dictionary(D);
 				break;
 			case 4 :
-				printf("Word to delete: \n");
+				printf("Word to verify: \n");
 				parameter = getParameter();
+				if(Is_Empty_Dictionary(D)){
+					printf("The dictionary is empty\n") ;
+					break;
+				}
 				if(Exist_Word(D, parameter)== True){
 					printf("The word is in the dictionary\n");
 				}
@@ -59,6 +70,9 @@ int main(int argc, char *argv[]) {
 				break;
 			case 5 :
 				D = Empty_Dictionary(D);
+				if(Is_Empty_Dictionary(D)){
+					printf("The dictionary is empty\n") ;
+				}
 				break;
 			case 6 :
 				printf("Name of the file in which you want to save: \n");

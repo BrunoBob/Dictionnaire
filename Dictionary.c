@@ -22,9 +22,11 @@ Dictionary Create_Dictionary(void){
 }
 
 Dictionary Add_Word(Dictionary D, char* word) {
-
-	if(Exist_Word(D,word) == True) {
-		return D;
+	
+	if(!Is_Empty_Dictionary(D)){
+		if(Exist_Word(D,word) == True) {
+			return D;
+		}
 	}
 
 	size_t length = strlen(word);
@@ -110,14 +112,19 @@ Dictionary Add_Word(Dictionary D, char* word) {
 }
 
 Dictionary Empty_Dictionary(Dictionary D) {
-	if(Is_Empty_Dictionary == False) {
+	if(Is_Empty_Dictionary(D) == False) {
 		Empty_Dictionary(D->FSL);
 	}
 	if(D->FBR != NULL) {
 		Empty_Dictionary(D->FBR);
 	}
-	free(D);
-	return NULL;
+	if(D->car != 0){
+		free(D);
+	}
+	else{
+		D->FSL = NULL;
+	}
+	return D;
 }
 
 Dictionary Load_Dictionary(char* filename) {
