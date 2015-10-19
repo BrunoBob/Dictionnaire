@@ -1,7 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
 #include "Dictionary.h"
+
+char* getParameter(){
+	char* parameter ;
+	parameter = malloc(25*sizeof(char)) ;
+	return parameter ;
+}
 
 int main(int argc, char *argv[]) {
 
@@ -25,50 +28,50 @@ int main(int argc, char *argv[]) {
 
 		printf("Select which action to make: ");
 		scanf("%d", &choice);
+		char* parameter ;
 
 		switch(choice) {
 			case 1 :
-				char* word = (char*) malloc(25*sizeof(char));
 				printf("Word to add: \n");
-				scanf("%s", &word);
-				D = Add_Word(D, word);
-				free(word);
+				parameter = getParameter();
+				D = Add_Word(D, parameter) ;
+				free(parameter);
 				break;
 			case 2 :
-				char* word = (char*) malloc(25*sizeof(char));
 				printf("Word to delete: \n");
-				scanf("%s", &word);
-				D = Delete_Word(D, word);
-				free(word);
+				parameter = getParameter();
+				//D = Delete_Word(D, parameter);
+				free(parameter);
 				break;
 			case 3 :
-				Display_Dictionary();
+				Display_Dictionary(D);
 				break;
 			case 4 :
-				char* word = (char*) malloc(25*sizeof(char));
 				printf("Word to delete: \n");
-				scanf("%s", &word);
-				D = Exist_Wor(D, word);
-				free(word);
+				parameter = getParameter();
+				if(Exist_Word(D, parameter)== True){
+					printf("The word is in the dictionary\n");
+				}
+				else{
+					printf("The word is not in the dictionary\n");
+				}
+				free(parameter);
 				break;
 			case 5 :
 				D = Empty_Dictionary(D);
 				break;
 			case 6 :
-				char* filename = (char*) malloc(25*sizeof(char));
 				printf("Name of the file in which you want to save: \n");
-				scanf("%s", &filename);
-				Save_Dictionary(D, filename);
-				free(filename);
+				parameter = getParameter();
+				Save_Dictionary(D, parameter);
+				free(parameter);
 				break;
 			case 7 :
-				char* filename = (char*) malloc(25*sizeof(char));
 				printf("Name of the file to load: \n");
-				scanf("%s", &filename);
-				D = Load_Dictionary(filename);
-				free(filename);
+				parameter = getParameter();
+				D = Load_Dictionary(parameter);
+				free(parameter);
 				break;
-			default :
 		}
 	}
 	return 0;

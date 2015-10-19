@@ -23,7 +23,7 @@ Dictionary Create_Dictionary(void){
 
 Dictionary Add_Word(Dictionary D, char* word) {
 
-	if(Exist_Word(word) == True) {
+	if(Exist_Word(D,word) == True) {
 		return D;
 	}
 
@@ -44,11 +44,11 @@ Dictionary Add_Word(Dictionary D, char* word) {
 		//We check for each character if it exists already.
 		while((i < length) && (finish == False)) {
 
-			ascii1 = char[i];
+			ascii1 = word[i];
 			ascii2 = F->car;
 
 			//If it exists, we go to the next level and check the next character.
-			if(char[i] == F->car) {
+			if(word[i] == F->car) {
 				if (F->FSL != NULL) {
 					E = F;
 					F = F->FSL;
@@ -87,7 +87,7 @@ Dictionary Add_Word(Dictionary D, char* word) {
 		}
 	}
 	else {
-		N->car = char[i];
+		N->car = word[i];
 		F = N->FBR;
 		E->FSL = N;
 		finish = True;
@@ -95,15 +95,15 @@ Dictionary Add_Word(Dictionary D, char* word) {
 	}
 
 	if(finish == True) {
-		for(i; i < length; i++) {
+		for(; i < length; i++) {
 			Dictionary R = Create_Dictionary();
-			R->car = char[i];
-			W->FSL = R;
-			W = R;
+			R->car = word[i];
+			N->FSL = R;
+			N = R;
 		}
 		Dictionary R = Create_Dictionary();
 		R->car = 42;
-		W->FSL = R;
+		N->FSL = R;
 	}
 
 	return D;
@@ -121,7 +121,7 @@ Dictionary Empty_Dictionary(Dictionary D) {
 }
 
 Dictionary Load_Dictionary(char* filename) {
-		D = Create_Dictionary();
+		Dictionary D = Create_Dictionary();
 		//TODO
 		return D;
 }
