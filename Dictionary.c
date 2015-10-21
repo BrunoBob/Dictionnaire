@@ -24,7 +24,7 @@ Dictionary Create_Dictionary(void){
 }
 
 Dictionary Add_Word(Dictionary D, char* word) {
-	
+
 	if(!Is_Empty_Dictionary(D)){
 		if(Exist_Word(D,word) == True) {
 			return D;
@@ -174,9 +174,11 @@ Dictionary Empty_Dictionary(Dictionary D) {
 }
 
 Dictionary Load_Dictionary(char* filename) {
-		Dictionary D = Create_Dictionary();
-		//TODO
-		return D;
+	Dictionary D = Create_Dictionary();
+	FILE *file;
+
+	
+	return D;
 }
 
 Boolean Is_Empty_Dictionary(Dictionary D){
