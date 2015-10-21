@@ -7,7 +7,22 @@ char* getParameter(){
 	return parameter ;
 }
 
-int main(int argc, char *argv[]) {	
+int main(int argc, char *argv[]) {
+
+	printf("This program is to be used as a dictionary.\n");
+	printf("Several options are possible.\n");
+	printf("Write the caracter before ':' to call the related function.\n");
+	printf("--------------------------------\n");
+	printf("1: Add a word in the dictionary.\n");
+	printf("2: Delete a word of the dictionary.\n");
+	printf("3: Display dictionary.\n");
+	printf("4: Verify if a word is in the dictionary.\n");
+	printf("5: Empty dictionary.\n");
+	printf("6: Save Dictionary into a '.dic' file.\n");
+	printf("7: Load a Dictionary from a '.dic' file.\n");
+	printf("8: Quit.\n");
+	
+	
 
 	int choice = 0;
 	Dictionary D = Create_Dictionary();
@@ -16,24 +31,10 @@ int main(int argc, char *argv[]) {
 
 	while(choice != 8) {
 		
-		printf("This program is to be used as a dictionary.\n");
-		printf("Several options are possible.\n");
-		printf("Write the caracter before ':' to call the related function.\n");
-		printf("--------------------------------\n");
-		printf("1: Add a word in the dictionary.\n");
-		printf("2: Delete a word of the dictionary.\n");
-		printf("3: Display dictionary.\n");
-		printf("4: Verify if a word is in the dictionary.\n");
-		printf("5: Empty dictionary.\n");
-		printf("6: Save Dictionary into a '.dic' file.\n");
-		printf("7: Load a Dictionary from a '.dic' file.\n");
-		printf("8: Quit.\n");
-		
 		
 
 		printf("Select which action to make: ");
 		scanf("%d", &choice);
-		system("clear");
 		char* parameter ;
 
 		switch(choice) {
@@ -87,10 +88,5 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	/*Dictionary a = Create_Dictionary();
-	a= a->FBR ;
-	if(a == NULL){
-		printf("GFIENEFIOEH\n");
-	}*/
 	return 0;
 }
