@@ -33,10 +33,10 @@ Dictionary Add_Word(Dictionary D, char* word) {
 
 	size_t length = strlen(word);
 	int i ;
-	
+
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
-	
+
 	for(i = 0 ; i < length ; i++){
 		if(next == NULL){ // If fisrt son is null then break and create the rest of the word
 			break ;
@@ -45,7 +45,7 @@ Dictionary Add_Word(Dictionary D, char* word) {
 			current = next;
 			next = next->FBR ;
 		}
-		if(next == NULL || (next->car != word[i])){ // If the current caracter doesnt exist we create it		
+		if(next == NULL || (next->car != word[i])){ // If the current caracter doesnt exist we create it
 			if(current->FSL == next){ //If the node to create is the first brother
 				next = Create_Dictionary() ;
 				next->car = word[i] ;
@@ -54,10 +54,10 @@ Dictionary Add_Word(Dictionary D, char* word) {
 			}
 			else{
 				next = Create_Dictionary() ;
-				next->car = word[i] ;		
+				next->car = word[i] ;
 				next->FBR = current->FBR ;
 				current->FBR = next ;
-			}			
+			}
 		}
 		current = next ;
 		next = next->FSL ;
@@ -72,10 +72,10 @@ Dictionary Add_Word(Dictionary D, char* word) {
 	next = Create_Dictionary(); //Add the end of the word caracter *
 	next->car = '*' ;
 	current->FSL = next ;
-	
-	return D ;		
-	
-	
+
+	return D ;
+
+
 		/*int ascii1, ascii2;
 
 	// E is current, while F is next. D is the root. N is a new node.
@@ -154,7 +154,7 @@ Dictionary Add_Word(Dictionary D, char* word) {
 	}
 
 	return D;*/
-	
+
 }
 
 Dictionary Empty_Dictionary(Dictionary D) {
@@ -175,9 +175,21 @@ Dictionary Empty_Dictionary(Dictionary D) {
 
 Dictionary Load_Dictionary(char* filename) {
 	Dictionary D = Create_Dictionary();
-	FILE *file;
+	FILE* file;
+	char* word = malloc(25*sizeof(char));
+	ssiez_t line;
+	size_t word_length = 25;
 
-	
+	file = fopen(filename, "r");
+	if(file == NULL) {
+		printf("The file does not exist.\n")
+		return NULL;
+	}
+	while((line = gets(word, word_length, file)) != NULL) {
+		Add_Word(D, word);
+	}
+
+	printf("The Dictionary has been loaded successfully.");
 	return D;
 }
 

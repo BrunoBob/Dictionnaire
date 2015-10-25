@@ -7,15 +7,13 @@ char* getParameter(){
 	return parameter ;
 }
 
-int main(int argc, char *argv[]) {	
+int main(int argc, char *argv[]) {
 
 	int choice = 0;
 	Dictionary D = Create_Dictionary();
-	
-	
 
 	while(choice != 8) {
-		
+
 		printf("This program is to be used as a dictionary.\n");
 		printf("Several options are possible.\n");
 		printf("Write the caracter before ':' to call the related function.\n");
@@ -28,8 +26,6 @@ int main(int argc, char *argv[]) {
 		printf("6: Save Dictionary into a '.dic' file.\n");
 		printf("7: Load a Dictionary from a '.dic' file.\n");
 		printf("8: Quit.\n");
-		
-		
 
 		printf("Select which action to make: ");
 		scanf("%d", &choice);
