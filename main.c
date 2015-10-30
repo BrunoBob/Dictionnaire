@@ -8,6 +8,8 @@ char* getParameter(){
 }
 
 int main(int argc, char *argv[]) {
+	
+	system("clear");
 
 	int choice = 0;
 	Dictionary D = Create_Dictionary();
@@ -36,17 +38,37 @@ int main(int argc, char *argv[]) {
 			case 1 :
 				printf("Word to add: \n");
 				parameter = getParameter();
+				if(!Is_Empty_Dictionary(D)){
+					if(Exist_Word(D,parameter) == True) {
+						printf("Word %s already in the dictionary", parameter);
+						break;
+					}
+				}
 				D = Add_Word(D, parameter) ;
 				free(parameter);
 				break;
 			case 2 :
 				printf("Word to delete: \n");
 				parameter = getParameter();
-				//D = Delete_Word(D, parameter);
+				if(Is_Empty_Dictionary(D)){
+					printf("Can't delete because the dictionary is empty");
+				}
+				else if(!Exist_Word(D,parameter) == True) {
+					printf("Word %s is not in the dictionary", parameter);
+				}
+				else{
+					D = Delete_Word(D, parameter);
+				}
 				free(parameter);
 				break;
 			case 3 :
-				Display_Dictionary(D);
+				if(Is_Empty_Dictionary(D)){
+					printf("The dictionary is empty\n") ;
+				}
+				else{
+					char *word = malloc(0);
+					Display_Dictionary(D, word);
+				}
 				break;
 			case 4 :
 				printf("Word to verify: \n");
@@ -83,10 +105,17 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	/*Dictionary a = Create_Dictionary();
-	a= a->FBR ;
-	if(a == NULL){
-		printf("GFIENEFIOEH\n");
-	}*/
+	/*char* word = malloc( 0) ;
+	*word='t';
+	*(word+1)='e' ;
+	word[2]='s' ;
+	word[3]='t' ;
+	printf("%s\n", word) ;
+	//word = realloc(word, 1*sizeof(char)) ;
+	word[4]='r' ;
+	word[5]='t' ;
+	printf("%s\n", word) ;
+	free(word) ;
+	printf("%s\n", word) ;*/
 	return 0;
 }

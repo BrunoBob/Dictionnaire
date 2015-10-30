@@ -25,17 +25,12 @@ Dictionary Create_Dictionary(void){
 
 Dictionary Add_Word(Dictionary D, char* word) {
 
-	if(!Is_Empty_Dictionary(D)){
-		if(Exist_Word(D,word) == True) {
-			return D;
-		}
-	}
-
 	size_t length = strlen(word);
 	int i ;
 
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
+	//printf("start : %c", next->car);
 
 	for(i = 0 ; i < length ; i++){
 		if(next == NULL){ // If fisrt son is null then break and create the rest of the word
@@ -174,7 +169,7 @@ Dictionary Empty_Dictionary(Dictionary D) {
 }
 
 Dictionary Load_Dictionary(char* filename) {
-	Dictionary D = Create_Dictionary();
+	/*Dictionary D = Create_Dictionary();
 	FILE* file;
 	char* word = malloc(25*sizeof(char));
 	ssiez_t line;
@@ -190,7 +185,7 @@ Dictionary Load_Dictionary(char* filename) {
 	}
 
 	printf("The Dictionary has been loaded successfully.");
-	return D;
+	return D;*/
 }
 
 Boolean Is_Empty_Dictionary(Dictionary D){
@@ -218,10 +213,51 @@ Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 	return False;
 }
 
-void Display_Dictionary(Dictionary D) {
-	//TODO
+void Display_Dictionary(Dictionary D, char* word) {
+	/*size_t lenght = strlen(word) + 1;
+	//printf("%d\n", lenght) ;
+	
+	//word = realloc(word, lenght * sizeof(char)) ;  //Modify the memory reserved to word*/
+	
+	/*D = D->FSL ;
+	while(D != NULL){
+		if(D->car == '*'){
+			printf("%s\n", word
+		word[lenght - 1] = D->car*/
+	
 }
 
 void Save_Dictionary(Dictionary D, char* filename) {
 	//TODO
+}
+
+Dictionary Delete_Word(Dictionary D, char* word){
+	size_t lenght = strlen(word) ;
+	int i ;
+	Dictionary current = D ;
+	Dictionary next = D->FSL ;
+	//Boolean delete = False ;
+	
+	for(i=0 ; i < lenght ; i++){
+		while((next != NULL) && (next->FBR == NULL)){
+			next = next->FSL ;
+		}
+		if(next == NULL){
+			break ;
+		}
+		
+		current = current->FSL ;
+		while(current->car != word[i]){
+			current = current->FBR ;
+		}
+		next = current->FSL ;
+	}
+	next = current->FSL ;
+	for( ; i < lenght ; i++){
+		free(current) ;
+		current = next ;
+		next = next->FSL ;
+	}
+	free(next) ;
+	return D;
 }
