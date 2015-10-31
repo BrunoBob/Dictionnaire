@@ -66,8 +66,7 @@ int main(int argc, char *argv[]) {
 					printf("The dictionary is empty\n") ;
 				}
 				else{
-					char *word = malloc(0);
-					Display_Dictionary(D, word);
+					Display_Dictionary(D->FSL, "", 0);
 				}
 				break;
 			case 4 :
@@ -105,17 +104,12 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	/*char* word = malloc( 0) ;
-	*word='t';
-	*(word+1)='e' ;
-	word[2]='s' ;
-	word[3]='t' ;
+	
+	/*char* word = malloc(4*sizeof(char)) ;
+	printf("%d\n", strlen(word)) ;
+	word[0]= 'a';
 	printf("%s\n", word) ;
-	//word = realloc(word, 1*sizeof(char)) ;
-	word[4]='r' ;
-	word[5]='t' ;
-	printf("%s\n", word) ;
-	free(word) ;
+	word[0]= ' ';
 	printf("%s\n", word) ;*/
 	return 0;
 }

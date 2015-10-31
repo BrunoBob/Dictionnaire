@@ -17,5 +17,5 @@ Dictionary Empty_Dictionary(Dictionary D);//Done
 Dictionary Load_Dictionary(char* filename);//Done
 Boolean Exist_Word(Dictionary D, char* word);//Done
 Boolean Is_Empty_Dictionary(Dictionary D);//Done
-void Display_Dictionary(Dictionary D, char* word);
+void Display_Dictionary(Dictionary D, char* word, int lenght);
 void Save_Dictionary(Dictionary D, char* filename);

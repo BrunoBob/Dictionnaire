@@ -213,18 +213,29 @@ Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 	return False;
 }
 
-void Display_Dictionary(Dictionary D, char* word) {
-	/*size_t lenght = strlen(word) + 1;
-	//printf("%d\n", lenght) ;
+void Display_Dictionary(Dictionary D, char* word, int lenght) {
 	
-	//word = realloc(word, lenght * sizeof(char)) ;  //Modify the memory reserved to word*/
+	char* newWord =  malloc((lenght + 1)  * sizeof(char)) ;
+	int i ;
+	for(i = 0 ; i< lenght ; i++){
+		newWord[i] = word[i] ;  //Get the start of the word with the previous word
+	}
 	
-	/*D = D->FSL ;
-	while(D != NULL){
-		if(D->car == '*'){
-			printf("%s\n", word
-		word[lenght - 1] = D->car*/
+	if(D->FBR != NULL){
+		Display_Dictionary(D->FBR, newWord, lenght) ;  //Call the function for the brother
+	}
 	
+	if(D->car == '*'){
+		for(i = 0 ; i< lenght ; i++){ // If end of the word print it
+			printf("%c", newWord[i]) ;
+		}
+		printf("\n") ;
+	}
+	else{
+		newWord[lenght] = D->car ;
+		Display_Dictionary(D->FSL, newWord, lenght + 1) ;//Call the function for the son
+	}
+	free(newWord) ;
 }
 
 void Save_Dictionary(Dictionary D, char* filename) {
@@ -236,7 +247,6 @@ Dictionary Delete_Word(Dictionary D, char* word){
 	int i ;
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
-	//Boolean delete = False ;
 	
 	for(i=0 ; i < lenght ; i++){
 		while((next != NULL) && (next->FBR == NULL)){

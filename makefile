@@ -7,7 +7,7 @@ Dictionary.o : Dictionary.h Dictionary.c
 	gcc -c -Wall Dictionary.c
 	
 Dictionary : main.o Dictionary.o
-	gcc main.o Dictionary.o -o Dictionary
+	gcc main.o -Wall Dictionary.o -o Dictionary
 	
 clean : 
 	rm *.o Dictionary
