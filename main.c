@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 				parameter = getParameter();
 				if(!Is_Empty_Dictionary(D)){
 					if(Exist_Word(D,parameter) == True) {
-						printf("Word %s already in the dictionary", parameter);
+						printf("Word %s already in the dictionary\n", parameter);
 						break;
 					}
 				}
@@ -51,10 +51,10 @@ int main(int argc, char *argv[]) {
 				printf("Word to delete: \n");
 				parameter = getParameter();
 				if(Is_Empty_Dictionary(D)){
-					printf("Can't delete because the dictionary is empty");
+					printf("Can't delete because the dictionary is empty\n");
 				}
 				else if(!Exist_Word(D,parameter) == True) {
-					printf("Word %s is not in the dictionary", parameter);
+					printf("Word %s is not in the dictionary\n", parameter);
 				}
 				else{
 					D = Delete_Word(D, parameter);
@@ -91,15 +91,20 @@ int main(int argc, char *argv[]) {
 				}
 				break;
 			case 6 :
-				printf("Name of the file in which you want to save: \n");
-				parameter = getParameter();
-				Save_Dictionary(D, parameter);
-				free(parameter);
+				if(Is_Empty_Dictionary(D)){
+					printf("The dictionary is empty\n") ;
+				}
+				else{
+					printf("Name of the file in which you want to save: \n");
+					parameter = getParameter();
+					Save_Dictionary(D, parameter);
+					free(parameter);
+				}
 				break;
 			case 7 :
 				printf("Name of the file to load: \n");
 				parameter = getParameter();
-				D = Load_Dictionary(parameter);
+				D = Load_Dictionary(parameter, D);
 				free(parameter);
 				break;
 		}

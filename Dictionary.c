@@ -30,7 +30,6 @@ Dictionary Add_Word(Dictionary D, char* word) {
 
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
-	//printf("start : %c", next->car);
 
 	for(i = 0 ; i < length ; i++){
 		if(next == NULL){ // If fisrt son is null then break and create the rest of the word
@@ -41,7 +40,13 @@ Dictionary Add_Word(Dictionary D, char* word) {
 			next = next->FBR ;
 		}
 		if(next == NULL || (next->car != word[i])){ // If the current caracter doesnt exist we create it
-			if(current->FSL == next){ //If the node to create is the first brother
+			if(current->car == '*'){
+				next = Create_Dictionary() ;
+				next->car = word[i] ;
+				next->FBR = current->FBR ;
+				current->FBR = next ;
+			}			
+			else if(current->FSL == next){ //If the node to create is the first brother
 				next = Create_Dictionary() ;
 				next->car = word[i] ;
 				next->FBR =current->FSL ;
@@ -62,10 +67,11 @@ Dictionary Add_Word(Dictionary D, char* word) {
 		next->car = word[i] ;
 		current->FSL = next ;
 		current = next ;
-		next = next->FSL ;
+		//next = next->FSL ;
 	}
 	next = Create_Dictionary(); //Add the end of the word caracter *
 	next->car = '*' ;
+	next->FBR = current->FSL ;
 	current->FSL = next ;
 
 	return D ;
@@ -168,8 +174,7 @@ Dictionary Empty_Dictionary(Dictionary D) {
 	return D;
 }
 
-Dictionary Load_Dictionary(char* filename) {
-	Dictionary D = NULL;
+Dictionary Load_Dictionary(char* filename, Dictionary D) {
 
 	FILE* file = NULL ;
 	file = fopen(filename, "r") ;
@@ -178,12 +183,19 @@ Dictionary Load_Dictionary(char* filename) {
 		printf("ERREUR : file not found\n") ;
 	}
 	else{
-		D = Create_Dictionary() ;
 		char* word = malloc(25 * sizeof(char)) ;
 		
 		while(fgets(word, 25, file) != NULL){
-			printf("word loaded : %s\n", word) ;
-			D = Add_Word(D, word) ;
+			if(!Is_Empty_Dictionary(D)){
+				if(Exist_Word(D,word) == False) {
+					printf("word loaded : %s\n", word) ;
+					D = Add_Word(D, word) ;
+				}
+			}
+			else{
+				printf("word loaded : %s\n", word) ;
+				D = Add_Word(D, word) ;
+			}
 		}
 		
 		fclose(file) ;
@@ -290,6 +302,7 @@ Dictionary Delete_Word(Dictionary D, char* word){
 	int i ;
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
+	Dictionary previous ;
 	
 	for(i=0 ; i < lenght ; i++){
 		while((next != NULL) && (next->FBR == NULL)){
@@ -298,18 +311,30 @@ Dictionary Delete_Word(Dictionary D, char* word){
 		if(next == NULL){
 			break ;
 		}
-		
+		previous = current ;
 		current = current->FSL ;
 		while(current->car != word[i]){
+			previous = current ;
 			current = current->FBR ;
 		}
 		next = current->FSL ;
+	}
+	if(current->FBR != NULL){
+		if(previous->FSL == current){
+			previous->FSL = current->FBR ;
+		}
+		else{
+			previous->FBR = current->FBR ;
+		}
 	}
 	next = current->FSL ;
 	for( ; i < lenght ; i++){
 		free(current) ;
 		current = next ;
 		next = next->FSL ;
+	}
+	if(next->FBR != NULL){
+		current->FSL = next->FBR ;
 	}
 	free(next) ;
 	return D;
