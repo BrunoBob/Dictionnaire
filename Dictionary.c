@@ -169,23 +169,27 @@ Dictionary Empty_Dictionary(Dictionary D) {
 }
 
 Dictionary Load_Dictionary(char* filename) {
-	/*Dictionary D = Create_Dictionary();
-	FILE* file;
-	char* word = malloc(25*sizeof(char));
-	ssiez_t line;
-	size_t word_length = 25;
+	Dictionary D = NULL;
 
-	file = fopen(filename, "r");
-	if(file == NULL) {
-		printf("The file does not exist.\n")
-		return NULL;
+	FILE* file = NULL ;
+	file = fopen(filename, "r") ;
+	
+	if(file == NULL){
+		printf("ERREUR : file not found\n") ;
 	}
-	while((line = gets(word, word_length, file)) != NULL) {
-		Add_Word(D, word);
+	else{
+		D = Create_Dictionary() ;
+		char* word = malloc(25 * sizeof(char)) ;
+		
+		while(fgets(word, 25, file) != NULL){
+			printf("word loaded : %s\n", word) ;
+			D = Add_Word(D, word) ;
+		}
+		
+		fclose(file) ;
 	}
 
-	printf("The Dictionary has been loaded successfully.");
-	return D;*/
+	return D;
 }
 
 Boolean Is_Empty_Dictionary(Dictionary D){
@@ -239,7 +243,46 @@ void Display_Dictionary(Dictionary D, char* word, int lenght) {
 }
 
 void Save_Dictionary(Dictionary D, char* filename) {
-	//TODO
+	FILE* file = NULL ;
+	
+	file = fopen(filename, "w") ;
+	
+	if(file == NULL){
+		printf("ERREUR : impossible to create the file\n") ;
+	}
+	else{		
+		SaveWords(D->FSL, "", 0, file) ;
+		
+		fclose(file) ;
+	}
+}
+
+void SaveWords(Dictionary D, char* word, int lenght, FILE* file) { //Save all the words of a dictionary recursivly in a file
+	
+	char* newWord =  malloc((lenght + 1)  * sizeof(char)) ;
+	int i ;
+	for(i = 0 ; i< lenght ; i++){
+		newWord[i] = word[i] ;  //Get the start of the word with the previous word
+	}
+	
+	if(D->FBR != NULL){
+		SaveWords(D->FBR, newWord, lenght, file) ;  //Call the function for the brother
+	}
+	
+	if(D->car == '*'){
+		printf("word save :") ;
+		for(i = 0 ; i< lenght ; i++){ // If end of the word print it
+			fputc(newWord[i], file) ;
+			printf("%c", newWord[i]) ;
+		}
+		fputc('\n', file) ;
+		printf("\n") ;
+	}
+	else{
+		newWord[lenght] = D->car ;
+		SaveWords(D->FSL, newWord, lenght + 1, file) ;//Call the function for the son
+	}
+	free(newWord) ;
 }
 
 Dictionary Delete_Word(Dictionary D, char* word){
