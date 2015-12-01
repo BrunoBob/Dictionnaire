@@ -45,7 +45,7 @@ Dictionary Add_Word(Dictionary D, char* word) {
 				next->car = word[i] ;
 				next->FBR = current->FBR ;
 				current->FBR = next ;
-			}			
+			}
 			else if(current->FSL == next){ //If the node to create is the first brother
 				next = Create_Dictionary() ;
 				next->car = word[i] ;
@@ -178,26 +178,34 @@ Dictionary Load_Dictionary(char* filename, Dictionary D) {
 
 	FILE* file = NULL ;
 	file = fopen(filename, "r") ;
-	
+
 	if(file == NULL){
 		printf("ERREUR : file not found\n") ;
 	}
 	else{
 		char* word = malloc(25 * sizeof(char)) ;
-		
+
 		while(fgets(word, 25, file) != NULL){
 			if(!Is_Empty_Dictionary(D)){
-				if(Exist_Word(D,word) == False) {
-					printf("word loaded : %s\n", word) ;
+
+				char c = word[0];	//Remove the '\n' from the word
+				int i=0;
+				while(c!='\n'){
+					i++;
+					c = word[i];
+				}
+				word[i]=0;
+
+				if(Exist_Word(D,word) != True) {
+					printf("word loaded : %s (dont exist)\n", word) ;
 					D = Add_Word(D, word) ;
 				}
-			}
-			else{
-				printf("word loaded : %s\n", word) ;
-				D = Add_Word(D, word) ;
+				else{
+					printf("word already exist : %s\n", word) ;
+				}
 			}
 		}
-		
+
 		fclose(file) ;
 	}
 
@@ -230,17 +238,17 @@ Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 }
 
 void Display_Dictionary(Dictionary D, char* word, int lenght) {
-	
+
 	char* newWord =  malloc((lenght + 1)  * sizeof(char)) ;
 	int i ;
 	for(i = 0 ; i< lenght ; i++){
 		newWord[i] = word[i] ;  //Get the start of the word with the previous word
 	}
-	
+
 	if(D->FBR != NULL){
 		Display_Dictionary(D->FBR, newWord, lenght) ;  //Call the function for the brother
 	}
-	
+
 	if(D->car == '*'){
 		for(i = 0 ; i< lenght ; i++){ // If end of the word print it
 			printf("%c", newWord[i]) ;
@@ -256,31 +264,31 @@ void Display_Dictionary(Dictionary D, char* word, int lenght) {
 
 void Save_Dictionary(Dictionary D, char* filename) {
 	FILE* file = NULL ;
-	
+
 	file = fopen(filename, "w") ;
-	
+
 	if(file == NULL){
 		printf("ERREUR : impossible to create the file\n") ;
 	}
-	else{		
+	else{
 		SaveWords(D->FSL, "", 0, file) ;
-		
+
 		fclose(file) ;
 	}
 }
 
 void SaveWords(Dictionary D, char* word, int lenght, FILE* file) { //Save all the words of a dictionary recursivly in a file
-	
+
 	char* newWord =  malloc((lenght + 1)  * sizeof(char)) ;
 	int i ;
 	for(i = 0 ; i< lenght ; i++){
 		newWord[i] = word[i] ;  //Get the start of the word with the previous word
 	}
-	
+
 	if(D->FBR != NULL){
 		SaveWords(D->FBR, newWord, lenght, file) ;  //Call the function for the brother
 	}
-	
+
 	if(D->car == '*'){
 		printf("word save :") ;
 		for(i = 0 ; i< lenght ; i++){ // If end of the word print it
@@ -303,7 +311,7 @@ Dictionary Delete_Word(Dictionary D, char* word){
 	Dictionary current = D ;
 	Dictionary next = D->FSL ;
 	Dictionary previous ;
-	
+
 	for(i=0 ; i < lenght ; i++){
 		while((next != NULL) && (next->FBR == NULL)){
 			next = next->FSL ;

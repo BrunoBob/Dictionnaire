@@ -8,7 +8,7 @@ char* getParameter(){
 }
 
 int main(int argc, char *argv[]) {
-	
+
 	system("clear");
 
 	int choice = 0;
@@ -109,12 +109,5 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	
-	/*char* word = malloc(4*sizeof(char)) ;
-	printf("%d\n", strlen(word)) ;
-	word[0]= 'a';
-	printf("%s\n", word) ;
-	word[0]= ' ';
-	printf("%s\n", word) ;*/
 	return 0;
 }
