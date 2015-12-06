@@ -262,12 +262,11 @@ Dictionary Delete_Word(Dictionary D, char* word){
 	else{
 		next = current->FSL ;
 		for( ; i < lenght ; i++){
-			printf("free %c\n",current->car );
 			free(current) ;
 			current = next ;
 			next = next->FSL ;
 		}
-		if(current->FBR == NULL){
+		if(current->FBR == NULL && current->FSL->FBR==NULL){
 			if(previous->FBR == current){
 				previous->FBR = NULL;
 			}
