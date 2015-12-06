@@ -246,6 +246,7 @@ Dictionary Delete_Word(Dictionary D, char* word){
 		}
 		next = current->FSL ;
 	}
+
 	if(current->FBR != NULL){
 		if(previous->FSL == current){
 			previous->FSL = current->FBR ;
@@ -254,15 +255,32 @@ Dictionary Delete_Word(Dictionary D, char* word){
 			previous->FBR = current->FBR ;
 		}
 	}
-	next = current->FSL ;
-	for( ; i < lenght ; i++){
-		free(current) ;
-		current = next ;
-		next = next->FSL ;
+
+	if(current==D){
+		D=Empty_Dictionary(D);
 	}
-	if(next->FBR != NULL){
-		current->FSL = next->FBR ;
+	else{
+		next = current->FSL ;
+		for( ; i < lenght ; i++){
+			printf("free %c\n",current->car );
+			free(current) ;
+			current = next ;
+			next = next->FSL ;
+		}
+		if(current->FBR == NULL){
+			if(previous->FBR == current){
+				previous->FBR = NULL;
+			}
+			else{
+				previous->FSL = NULL;
+			}
+			free(current);
+		}
+		if(next->FBR != NULL){
+			current->FSL = next->FBR ;
+		}
+		free(next) ;
 	}
-	free(next) ;
+
 	return D;
 }
