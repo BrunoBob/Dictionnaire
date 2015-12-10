@@ -93,7 +93,7 @@ Dictionary Empty_Dictionary(Dictionary D) {
 	return D;
 }
 
-Dictionary Load_Dictionary(Dictionary D, char* filename) {
+Dictionary Load_Dictionary(char* filename, Dictionary D) {
 
 	FILE* file = NULL ;
 	file = fopen(filename, "r") ;
@@ -131,14 +131,14 @@ Dictionary Load_Dictionary(Dictionary D, char* filename) {
 	return D;
 }
 
-Boolean Is_Empty_Dictionary(Dictionary D) {
+Boolean Is_Empty_Dictionary(Dictionary D){
 	if(D->FSL == NULL) {
 		return True;
 	}
 	return False;
 }
 
-Boolean Exist_Word(Dictionary D, char* word) { //Require a non empty dictionary
+Boolean Exist_Word(Dictionary D, char* word){ //Require a non empty dictionary
 
 	if(strlen(word) == 0 && D->FSL->car == 42){ // If end of the word return true
 		return True;
@@ -187,7 +187,7 @@ void Save_Dictionary(Dictionary D, char* filename) {
 	file = fopen(filename, "w") ;
 
 	if(file == NULL){
-		printf("ERROR : impossible to create the file\n") ;
+		printf("ERREUR : impossible to create the file\n") ;
 	}
 	else{
 		SaveWords(D->FSL, "", 0, file) ;
