@@ -1,10 +1,10 @@
 #include "Dictionary.h"
 
-char* getParameter(){
-	char* parameter ;
-	parameter = malloc(25*sizeof(char)) ;
-	scanf("%s", parameter) ;
-	return parameter ;
+char* getParameter() {
+	char* parameter;
+	parameter = malloc(25*sizeof(char));
+	scanf("%s", parameter);
+	return parameter;
 }
 
 int main(int argc, char *argv[]) {
@@ -32,69 +32,71 @@ int main(int argc, char *argv[]) {
 		printf("Select which action to make: ");
 		scanf("%d", &choice);
 		system("clear");
-		char* parameter ;
+		char* parameter;
 
 		switch(choice) {
 			case 1 :
 				printf("Word to add: \n");
 				parameter = getParameter();
-				if(Is_Empty_Dictionary(D) == False){
+				if(Is_Empty_Dictionary(D) == False) {
 					if(Exist_Word(D,parameter) == True) {
-						printf("Word %s already in the dictionary\n", parameter);
+						printf("Error : The word '%s' already in the dictionary.\n", parameter);
 						break;
 					}
 				}
-				D = Add_Word(D, parameter) ;
+				D = Add_Word(D, parameter);
+				printf("The word '%s' has been added.\n", parameter);
 				free(parameter);
 				break;
 			case 2 :
 				printf("Word to delete: \n");
 				parameter = getParameter();
-				if(Is_Empty_Dictionary(D) == True){
-					printf("Can't delete because the dictionary is empty\n");
+				if(Is_Empty_Dictionary(D) == True) {
+					printf("Error : Can't delete because the dictionary is empty.\n");
 				}
 				else if(!Exist_Word(D,parameter) == True) {
-					printf("Word %s is not in the dictionary\n", parameter);
+					printf("Error : The word '%s' is not in the dictionary.\n", parameter);
 				}
-				else{
+				else {
 					D = Delete_Word(D, parameter);
+					printf("The word '%s' has been deleted.\n", parameter);
 				}
 				free(parameter);
 				break;
 			case 3 :
-				if(Is_Empty_Dictionary(D) == True){
-					printf("The dictionary is empty\n") ;
+				if(Is_Empty_Dictionary(D) == True) {
+					printf("Error : The dictionary is empty and can't be displayed.\n");
 				}
-				else{
+				else {
 					Display_Dictionary(D->FSL, "", 0);
 				}
 				break;
 			case 4 :
 				printf("Word to verify: \n");
 				parameter = getParameter();
-				if(Is_Empty_Dictionary(D) == True){
-					printf("The dictionary is empty\n") ;
+				if(Is_Empty_Dictionary(D) == True) {
+					printf("Error : The dictionary is empty.\n");
 					break;
 				}
-				if(Exist_Word(D, parameter)== True){
-					printf("The word is in the dictionary\n");
+				if(Exist_Word(D, parameter) == True) {
+					printf("The word '%s' is in the dictionary.\n", parameter);
 				}
 				else{
-					printf("The word is not in the dictionary\n");
+					printf("The word '%s' is not in the dictionary.\n", parameter);
 				}
 				free(parameter);
 				break;
 			case 5 :
 				D = Empty_Dictionary(D);
-				if(Is_Empty_Dictionary(D) == True){
-					printf("The dictionary is empty\n") ;
+				if(Is_Empty_Dictionary(D) == True) {
+					printf("The dictionary is now empty.\n");
 				}
 				break;
 			case 6 :
-				if(Is_Empty_Dictionary(D) == True){
-					printf("The dictionary is empty\n") ;
+				if(Is_Empty_Dictionary(D) == True) {
+					printf("Error : The dictionary is empty.\n");
 				}
-				else{
+				else {
 					printf("Name of the file in which you want to save: \n");
 					parameter = getParameter();
 					Save_Dictionary(D, parameter);
