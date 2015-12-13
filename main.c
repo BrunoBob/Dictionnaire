@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 				parameter = getParameter();
 				if(Is_Empty_Dictionary(D) == False) {
 					if(Exist_Word(D,parameter) == True) {
-						printf("Error : The word '%s' already in the dictionary.\n", parameter);
+						printf("Error : The word '%s' is already in the dictionary.\n", parameter);
 						break;
 					}
 				}
